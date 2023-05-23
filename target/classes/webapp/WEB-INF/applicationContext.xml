@@ -34,8 +34,4 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
-    <context:component-scan base-package="hello.spring.dao"/>
-    <context:component-scan base-package="hello.spring.service"/>
-    <context:component-scan base-package="hello.spring.dto"/>
-    <context:component-scan base-package="hello.spring.controller"/>
 </beans>

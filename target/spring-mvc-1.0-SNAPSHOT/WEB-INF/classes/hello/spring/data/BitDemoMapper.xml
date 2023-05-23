@@ -8,4 +8,8 @@
         insert into bitdemo(no, message, name)
         values(#{no}, #{message}, #{name})
     </insert>
+    <select id="selectAll" resultType="BitDemo">
+        select *
+        from bitdemo
+    </select>
 </mapper>

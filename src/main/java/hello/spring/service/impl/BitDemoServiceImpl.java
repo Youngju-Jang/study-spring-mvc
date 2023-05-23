@@ -6,6 +6,8 @@ import hello.spring.service.BitDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BitDemoServiceImpl implements BitDemoService {
      
@@ -14,5 +16,10 @@ public class BitDemoServiceImpl implements BitDemoService {
      @Override
      public void bitDemoInsert(BitDemoDto bitDemoDto) {
           dao.bitDemoInsert(bitDemoDto);
+     }
+     
+     @Override
+     public List<BitDemoDto> selectAll() {
+          return dao.selectAll();
      }
 }

@@ -42,6 +42,8 @@
 <button id="lessonForm">lessonForm</button>
 <br>
 <button id="login">login</button>
+<br>
+<button id="addDemo">addDemo</button>
 </body>
 </html>
 
