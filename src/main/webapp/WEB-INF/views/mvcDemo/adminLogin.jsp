@@ -27,7 +27,7 @@
 
 </head>
 <body>
-<form name="login" method="post" action="/login">
+<form name="login" method="post" action="/login" >
       <div id="loginWrapper">
             <div class="loginForm">
                   <fieldset>
