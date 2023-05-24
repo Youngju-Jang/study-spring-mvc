@@ -7,7 +7,7 @@
     <!-- VO&DTO를 등록하세요 (별칭 설정)-->
     <typeAliases>
         <typeAlias alias="User" type="hello.spring.model.User"/>
-        <typeAlias alias="BitDemo" type="hello.spring.dto.BitDemoDto"/>
+        <typeAlias alias="Product" type="hello.spring.model.Product"/>
         <package name="hello.spring.model"/>
         <package name="mappers"/>
     </typeAliases>

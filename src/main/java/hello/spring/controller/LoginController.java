@@ -14,20 +14,18 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
      @GetMapping("/login")
      public String message(){
-          System.out.println("LoginController.message");
           return "mvcDemo/adminLogin";
      }
      @PostMapping ("/login")
      public String postLogin(@ModelAttribute User user, HttpServletRequest request){
-          System.out.println("LoginController.postLogin");
           String name = user.getName();
           String password = user.getPassword();
           boolean state = name.equals("Admin") && password.equals("123");
           if(state){
                request.getSession().setAttribute("userName", name);
-               return "mvcDemo/list";
+               return "redirect:/product?page=1&search=";
           }
-          return "mvcDemo/adminLogin";
+          return "cart/adminLogin";
      }
      @GetMapping("/logout")
      public String logout(HttpServletRequest request){
@@ -35,7 +33,7 @@ public class LoginController {
           if(session != null){
                session.invalidate();
           }
-          return "mvcDemo/adminLogin";
+          return "cart/adminLogin";
      }
      
 }

@@ -29,18 +29,6 @@
 
 </script>
 <body>
-<button id="home">HOME</button>
-<br>
-<button id="app">App Test</button>
-<br>
-<button id="message">Message</button>
-<br>
-<button id="lesson">Lesson</button>
-<br>
-<button id="empValue">EmpValue</button>
-<br>
-<button id="lessonForm">lessonForm</button>
-<br>
 <button id="login">login</button>
 <br>
 <button id="addDemo">addDemo</button>
