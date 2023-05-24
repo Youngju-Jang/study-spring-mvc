@@ -8,7 +8,8 @@
       <meta http-equiv="X-UA-Compatible" content="IE=10"/>
       <meta http-equiv="imagetoolbar" content="no"/>
       <meta name="copyright" content="Copyright 2020 @ high1 all rights reserved"/>
-      <link href="../css/contents.css" rel="stylesheet" type="text/css"/>
+<%--      <link href="../css/contents.css" rel="stylesheet" type="text/css"/>--%>
+      <link href="<%=request.getContextPath()%>/css/contents.css" rel="stylesheet" type="text/css"/>
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script>
           $(function () {
@@ -33,18 +34,18 @@
                   <fieldset>
                         <legend>관리자 시스템 로그인</legend>
                         <dl>
-                              <dt><img src="../img/common/th_id.gif" alt="아이디"/></dt>
+                              <dt><img src="<%=request.getContextPath()%>/img/common/th_id.gif" alt="아이디"/></dt>
                               <dd><input type="text" name="name" class="text" id="name"/></dd>
 
-                              <dt><img src="../img/common/th_pw.gif" alt="비밀번호"/></dt>
+                              <dt><img src="<%=request.getContextPath()%>/img/common/th_pw.gif" alt="비밀번호"/></dt>
                               <dd><input type="password" name="password" class="text" id="password"/></dd>
                         </dl>
                         <div class="btn">
-                              <img id="btnSubmit" src="../img/button/btn_login.gif" alt="LOGIN" title="LOGIN"/>
+                              <img id="btnSubmit" src="<%=request.getContextPath()%>/img/button/btn_login.gif" alt="LOGIN" title="LOGIN"/>
                         </div>
 
                         <div class="saveId"><input type="checkbox" id="checker" name="checker"/>
-                              <img src="../img/common/save_id.gif" alt="아이디 저장"/>
+                              <img src="<%=request.getContextPath()%>/img/common/save_id.gif" alt="아이디 저장"/>
                         </div>
                   </fieldset>
             </div>

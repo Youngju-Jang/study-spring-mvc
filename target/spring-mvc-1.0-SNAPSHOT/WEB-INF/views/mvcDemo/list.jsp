@@ -8,6 +8,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
 <meta http-equiv="imagetoolbar" content="no" />
 <link href="../css/contents.css" rel="stylesheet" type="text/css" />
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script>
+		$(function () {
+			var userName = '<%=session.getAttribute("userName")%>';
+			if(userName == '' || userName == 'null'){
+				alert("로그인이 필요합니다");
+				location.href= '/login';
+			}
+		});
+	</script>
 </head>
 <body >
 	<div id="wrapper">
@@ -17,8 +27,8 @@
 						<div class="loginWrap">
 							<span class="fir">2022.05.17</span>
 							<span>13:30:22</span>
-							<span><em>OOO님</em> 좋은 하루 되세요</span>
-							<a href="" class="btnLogout"><img src="../img/common/btn_logout.gif" alt="로그아웃" /></a>
+							<span><em>${userName} 님</em> 좋은 하루 되세요</span>
+							<a href="/logout" class="btnLogout"><img src="../img/common/btn_logout.gif" alt="로그아웃" /></a>
 						</div>
 					</div>
 				</div>
