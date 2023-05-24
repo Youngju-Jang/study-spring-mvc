@@ -1,4 +1,4 @@
-package hello.spring.model;
+package hello.spring.global;
 
 
 import lombok.*;

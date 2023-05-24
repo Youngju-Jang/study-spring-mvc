@@ -1,4 +1,4 @@
-package hello.spring.model;
+package hello.spring.global;
 
 public class PagingComponent {
      int pageScale = 2;//보여줄 row

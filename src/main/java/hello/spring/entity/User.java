@@ -1,4 +1,4 @@
-package hello.spring.model;
+package hello.spring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

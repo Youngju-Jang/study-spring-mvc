@@ -8,8 +8,20 @@
         insert into bitdemo(no, message, name)
         values(#{no}, #{message}, #{name})
     </insert>
-    <select id="selectAll" resultType="Product">
+    <select id="selectAll" resultType="Product" parameterType="java.util.HashMap">
         select *
-        from bitdemo
+        from
+        (select @rownum:=@rownum+1 rm, PRODUCT.*
+        from PRODUCT
+        where (@rownum:=0)=0
+        <if test="search != null and search != ''">
+            and ${option} like CONCAT('%',#{search},'%')
+        </if>
+        order by no desc) PRODUCT
+        where rm between ((#{pageBean.currentPage}-1)*#{pageBean.pageScale} +1) and (#{pageBean.currentPage}*#{pageBean.pageScale})
+    </select>
+    <select id="countAll" resultType="int">
+        select count(1)
+        from product
     </select>
 </mapper>

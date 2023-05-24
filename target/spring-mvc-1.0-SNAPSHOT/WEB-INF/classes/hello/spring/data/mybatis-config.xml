@@ -6,8 +6,8 @@
 
     <!-- VO&DTO를 등록하세요 (별칭 설정)-->
     <typeAliases>
-        <typeAlias alias="User" type="hello.spring.model.User"/>
-        <typeAlias alias="Product" type="hello.spring.model.Product"/>
+        <typeAlias alias="User" type="hello.spring.entity.User"/>
+        <typeAlias alias="Product" type="hello.spring.entity.Product"/>
         <package name="hello.spring.model"/>
         <package name="mappers"/>
     </typeAliases>

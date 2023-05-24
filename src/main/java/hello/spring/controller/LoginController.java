@@ -1,11 +1,10 @@
 package hello.spring.controller;
 
-import hello.spring.model.User;
+import hello.spring.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
      @GetMapping("/login")
      public String message(){
-          return "mvcDemo/adminLogin";
+          return "cart/adminLogin";
      }
      @PostMapping ("/login")
      public String postLogin(@ModelAttribute User user, HttpServletRequest request){
@@ -23,7 +22,7 @@ public class LoginController {
           boolean state = name.equals("Admin") && password.equals("123");
           if(state){
                request.getSession().setAttribute("userName", name);
-               return "redirect:/product?page=1&search=";
+               return "redirect:/product";
           }
           return "cart/adminLogin";
      }
