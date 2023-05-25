@@ -28,7 +28,9 @@
 	
 				<div class="contents">
 					<div class="btnSet clfix mgb15">
-						<span class="fr"> <span class="button"><a href="#">목록</a></span>
+						<span class="fr">
+							<span class="button"><a href="">목록</a></span>
+							<span class="button"><a href="/product/add">등록</a></span>
 						</span>
 					</div>
                    <form action="clientList.do" method="post">

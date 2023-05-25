@@ -1,7 +1,7 @@
 package hello.spring.service.impl;
 
 import hello.spring.dao.ProductDao;
-import hello.spring.dto.ProductDto;
+import hello.spring.dto.ProductResponseDto;
 import hello.spring.entity.Product;
 import hello.spring.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +17,16 @@ public class ProductServiceImpl implements ProductService {
      
      private final ProductDao productDao;
      @Override
-     public void productInsert(ProductDto productDto) {
+     public void productInsert(ProductResponseDto productResponseDto) {
      
      }
      @Override
-     public List<ProductDto> selectAll(HashMap<String, Object> hashMap) {
+     public List<ProductResponseDto> selectAll(HashMap<String, Object> hashMap) {
           List<Product> productList = productDao.selectAll(hashMap);
           if(productList == null){
                return null;
           }
-          return productList.stream().map(ProductDto::entity2Dto).collect(Collectors.toList());
+          return productList.stream().map(ProductResponseDto::entity2Dto).collect(Collectors.toList());
      }
      
      @Override

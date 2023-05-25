@@ -1,8 +1,8 @@
-package hello.spring.data;
+package hello.spring.dao;
 
 import hello.spring.entity.User;
 
-public interface UserMapper {
+public interface UserDao {
      boolean isExist(String name);
      User selectByName(String name);
 }

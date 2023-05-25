@@ -1,8 +1,8 @@
-package hello.spring.data;
+package hello.spring.service;
 
 import hello.spring.entity.User;
 
-public interface UserMapper {
+public interface UserService {
      boolean isExist(String name);
      User selectByName(String name);
 }

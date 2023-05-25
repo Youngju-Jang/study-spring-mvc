@@ -1,16 +1,14 @@
 package hello.spring.dto;
 
-import hello.spring.dao.ProductDao;
 import hello.spring.entity.Product;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
-public class ProductDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductResponseDto {
      private int no;
      private String productName;
      private String productOrigin;
@@ -21,8 +19,8 @@ public class ProductDto {
      private String seller;
      private String regdate;
      
-     public static ProductDto entity2Dto(Product entity){
-          return new ProductDtoBuilder()
+     public static ProductResponseDto entity2Dto(Product entity){
+          return  ProductResponseDto.builder()
                .no(entity.getNo())
                .productName(entity.getProductName())
                .productOrigin(entity.getProductOrigin())
