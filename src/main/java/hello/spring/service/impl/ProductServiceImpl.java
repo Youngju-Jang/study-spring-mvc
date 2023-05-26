@@ -12,12 +12,14 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,18 +29,32 @@ public class ProductServiceImpl implements ProductService {
      private final ProductDao productDao;
      private final String downImagePath = "/Users/joj1043/Documents/repository/inf_subBranch/study-spring-mvc/src/main/webapp/resources/downImage";
      
-     @Override
+     @Override // 상품 Insert
      public void productInsert(ProductRequestDto productRequestDto, User user) {
           // get file String name from multipart
-          String fileName = null;
-          try {
-               fileName = saveFile(productRequestDto.getFile(), downImagePath);
-          } catch (Exception e) {
-               e.printStackTrace();
-          }
+          FileOutputStream fos;
+          MultipartFile file = productRequestDto.getFile();
+          String fileDemo = createFileName(file.getOriginalFilename());
+          saveImage(file, fileDemo);
           // dto to entity
-          Product product = new Product(productRequestDto, user.getUserId(), fileName);
-          productDao.productInsert(product);
+          productDao.productInsert(new Product(productRequestDto, user.getUserId(), fileDemo));
+     }
+     
+     // 이미지 저장하기
+     private void saveImage(MultipartFile file, String fileDemo) {
+          FileOutputStream fos;
+          if (fileDemo.length() > 0) {
+               try{
+                    fos = new FileOutputStream(downImagePath + fileDemo);
+                    fos.write(file.getBytes());
+               } catch (Exception e) {
+                    e.printStackTrace();
+               }
+          }
+     }
+     // 먼저 파일 업로드 시, 파일명을 난수화하기 위해 random으로 돌립니다.
+     private String createFileName(String fileName) {
+          return UUID.randomUUID().toString().concat(fileName);
      }
      
      @Override
@@ -53,27 +69,5 @@ public class ProductServiceImpl implements ProductService {
      @Override
      public int countAll() {
           return productDao.countAll();
-     }
-     
-     public String saveFile(MultipartFile file, String directoryPath) throws IOException {
-          // parent directory를 찾는다.
-          Path directory = Paths.get(directoryPath).toAbsolutePath().normalize();
-          
-          // directory 해당 경로까지 디렉토리를 모두 만든다.
-          Files.createDirectories(directory);
-          
-          // 파일명을 바르게 수정한다.
-          String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-          
-          // 파일명에 '..' 문자가 들어 있다면 오류를 발생하고 아니라면 진행(해킹및 오류방지)
-          Assert.state(!fileName.contains(".."), "Name of file cannot contain '..'");
-          // 파일을 저장할 경로를 Path 객체로 받는다.
-          Path targetPath = directory.resolve(fileName).normalize();
-          
-          // 파일이 이미 존재하는지 확인하여 존재한다면 오류를 발생하고 없다면 저장한다.
-          Assert.state(!Files.exists(targetPath), fileName + " File already exists.");
-          file.transferTo(targetPath);
-          
-          return fileName;
      }
 }

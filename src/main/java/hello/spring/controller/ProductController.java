@@ -47,6 +47,7 @@ public class ProductController {
      public String getList(@RequestParam(defaultValue = "1") int page,
                            @RequestParam(defaultValue = "") String search,
                            @RequestParam(defaultValue = "") String option, // enum으로 변경하기 PRODUCTNAME,PRODCUTCATEGORY, PRODCUTORIGIN
+                           @RequestParam(defaultValue = "false") boolean forAdmin,
                            Model model){
           int totalRow = productService.countAll(); // 제품테이블 전체로우수
           Page pageBean = getPageBean(page, totalRow);
@@ -56,6 +57,10 @@ public class ProductController {
           
           model.addAttribute("pageBean",pageBean);
           model.addAttribute("productList", productList);
+          
+          if(forAdmin){
+               return "cart/productAddView";
+          }
           
           return "cart/productList";
      }
