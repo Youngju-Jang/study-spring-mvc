@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
      
      private final ProductDao productDao;
-     private final String downImagePath = "/Users/joj1043/Documents/repository/inf_subBranch/study-spring-mvc/src/main/webapp/resources/downImage";
+     private final String downImagePath = "/Users/joj1043/Documents/repository/inf_subBranch/study-spring-mvc/src/main/webapp/resources/downImage/";
      
      @Override // 상품 Insert
      public void productInsert(ProductRequestDto productRequestDto, User user) {

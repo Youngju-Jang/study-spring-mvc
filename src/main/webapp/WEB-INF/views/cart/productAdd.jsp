@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -15,10 +16,61 @@
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script>
           $(function () {
+              // user로그인여부 확인
               var userName = '${user.name}';
-              if (userName == '') {
-                  // location.replace = '/login';
-              }
+              // if (userName == '') {
+              //     // location.replace = '/login';
+              // }
+
+              // 첫화면 pagination 용
+              <%--$.ajax({--%>
+              <%--    url: '${pageContext.request.contextPath}/product/pageBean',--%>
+              <%--    type: 'GET',--%>
+              <%--    data: '',--%>
+              <%--    contentType: 'application/x-www-form-urlencoded; charset=euc-kr',--%>
+              <%--    success: function (data) {--%>
+              <%--        console.log(data);--%>
+              <%--        $("ul.pagination").html('');--%>
+              <%--        $("ul.pagination").html(data);--%>
+              <%--    }, error: function () {--%>
+              <%--        console.log('error');--%>
+              <%--    }--%>
+              <%--});--%>
+
+              // $("ul.pagination a").click(function (event) {
+              //     event.preventDefault(); // 기본 동작 차단
+              //     var href = $(this).attr("href"); // 버튼의 href 값을 가져옴
+              //     alert("버튼의 링크: " + href);
+              //
+              //     $.ajax({
+              //         url: href,
+              //         type: 'GET',
+              //         data: '',
+              //         contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+              //         success: function (data) {
+              //             $("ul.pagination").html('');
+              //             $("ul.pagination").html(data);
+              //         }, error: function () {
+              //             console.log('error');
+              //         }
+              //     });
+              // });
+
+              // 좌측 리스트내용 채우기용 ajax
+              $.ajax({
+                  url: '${pageContext.request.contextPath}/product?forAdmin=true',
+                  type: 'GET',
+                  data: '',
+                  contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+                  success: function (data) {
+                      console.log(data);
+                      $("div.tbWrapLt").html('');
+                      $("div.tbWrapLt").html(data);
+                  }, error: function () {
+                      console.log('error');
+                  }
+              });
+
               $("a#save").click(function () {
                   if ($("select[name='productCategory']").val() == '') {
                       alert("카테고리를 선택해주세요");
@@ -65,7 +117,6 @@
                                           <th>업체명</th>
                                           <td><select style="width: 200px;">
                                                 <option>선택하세요</option>
-                                                ¡
                                           </select></td>
                                           <th>상품명</th>
                                           <td><input type="text" name="" style="border:1px solid #ddd; height:20px;"
@@ -77,43 +128,8 @@
 
                               <div class="clfix">
                                     <div class="tbWrapLt">
-                                          <table class="bbsList">
-                                                <colgroup>
-                                                      <col width="30"/>
-                                                      <col width="100"/>
-                                                      <col width="100"/>
-                                                      <col width="100"/>
-                                                      <col width="100"/>
-                                                </colgroup>
-                                                <thead>
-                                                <tr>
-                                                      <th scope="col">NO.</th>
-                                                      <th scope="col">상품명</th>
-                                                      <th scope="col">모델</th>
-                                                      <th scope="col">가격</th>
-                                                      <th scope="col">상태</th>
-
-                                                </tr>
-                                                </thead>
-
-                                                <tbody>
-
-                                                <tr>
-                                                      <td></td>
-                                                      <td>
-                                                            <img src="${pageContext.request.contextPath}/resources/cartUp/"
-                                                                 width="50" height="50"/></td>
-                                                      <td></td>
-                                                      <td></td>
-                                                      <td>
-                                                            <span class="buttonFuc"><a href="#">수정</a></span><span
-                                                                class="buttonFuc"><a href="#">삭제</a></span>
-                                                      </td>
-                                                </tr>
-
-
-                                                </tbody>
-                                          </table>
+                                          <ul class="pagination"></ul>
+                                          <div class="tbWrapLt_content"></div>
                                     </div>
 
                                     <div class="tbWrapRt">

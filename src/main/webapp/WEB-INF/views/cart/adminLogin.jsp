@@ -12,7 +12,6 @@
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  <script>
   $(function () {
-   alert('${name}'!=null);
    if('${name}'!=null){
     $("input[name='name']").val('${name}');
      $("input[name='checker']").prop("checked", true);

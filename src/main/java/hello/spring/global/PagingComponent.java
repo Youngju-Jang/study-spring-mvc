@@ -1,7 +1,7 @@
 package hello.spring.global;
 
 public class PagingComponent {
-     int pageScale = 2;//보여줄 row
+     int pageScale = 3;//보여줄 row
      int blockScale = 3;//  block count
      int currentPage = 1;
      int totalRow = 0;

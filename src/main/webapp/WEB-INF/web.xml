@@ -5,6 +5,7 @@
          version="4.0">
 
     <request-character-encoding>UTF-8</request-character-encoding>
+    <response-character-encoding>UTF-8</response-character-encoding>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
