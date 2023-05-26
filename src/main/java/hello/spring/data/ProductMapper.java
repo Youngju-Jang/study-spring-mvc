@@ -8,4 +8,5 @@ import java.util.List;
 public interface ProductMapper {
      int countAll();
      List<Product> selectAll(HashMap<String, Object> hashMap);
+     void productInsert(Product product);
 }

@@ -1,5 +1,6 @@
 package hello.spring.entity;
 
+import hello.spring.dto.ProductRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,15 @@ public class Product {
      private int productPrice;
      private String productCategory;
      private String productFileName;
-     private String id;
+     private int id;
      private String today;
+     
+     public Product(ProductRequestDto dto, int userId, String fileName){
+          this.productName = dto.getProductName();
+          this.productOrigin = dto.getProductOrigin();
+          this.productPrice = dto.getProductPrice();
+          this.productCategory = dto.getProductCategory();
+          this.productFileName = fileName;
+          this.id = userId;
+     }
 }

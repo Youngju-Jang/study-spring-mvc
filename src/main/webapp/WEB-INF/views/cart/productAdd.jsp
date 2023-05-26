@@ -15,7 +15,7 @@
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script>
           $(function () {
-              var userName = '${userName}';
+              var userName = '${user.name}';
               if (userName == '') {
                   // location.replace = '/login';
               }

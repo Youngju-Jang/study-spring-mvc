@@ -2,18 +2,18 @@ package hello.spring.controller;
 
 import hello.spring.dto.ProductRequestDto;
 import hello.spring.dto.ProductResponseDto;
+import hello.spring.entity.User;
 import hello.spring.global.Page;
 import hello.spring.global.PagingComponent;
 import hello.spring.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,16 +26,20 @@ public class ProductController {
      private final ProductService productService;
      
      @PostMapping(value = "/add") // 제품등록
-     public String addProduct(@ModelAttribute ProductRequestDto productRequestDto){
-          System.out.println("productRequestDto = " + productRequestDto);
-          return "/product/add";
+     public String addProduct(@ModelAttribute ProductRequestDto productRequestDto,
+                              HttpServletRequest request) throws IOException {
+          User user = (User)request.getSession().getAttribute("user");
+          productService.productInsert(productRequestDto, user);
+          
+          return "redirect:/product/add";
      }
      
      @GetMapping("/add")
      public String getProductView(HttpServletRequest request){
-          Integer loggedUserId = (Integer)request.getSession().getAttribute("userId");
-          if(loggedUserId==null){
-//               return "redirect:/login";
+          User user = (User)request.getSession().getAttribute("user");
+          if(user==null){
+               System.out.println("ProductController.getProductView");
+               return "redirect:/login";
           }
           return "/cart/productAdd";
      }
@@ -69,4 +73,6 @@ public class ProductController {
           Page pageBean = pagingComponent.pagingCreate(totalRow, page);
           return pageBean;
      }
+     
+     
 }

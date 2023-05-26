@@ -24,4 +24,8 @@
         select count(1)
         from product
     </select>
+    <insert id="productInsert" parameterType="Product">
+        insert into product(PRODUCTNAME,PRODCUTORIGIN,PRODCUTPRICE,PRODCUTCATEGORY,PRODUCTFILENAME,ID,TODAY)
+        values(#{productName},#{productOrigin},#{productPrice},#{productCategory},#{productFileName},#{id},now())
+    </insert>
 </mapper>

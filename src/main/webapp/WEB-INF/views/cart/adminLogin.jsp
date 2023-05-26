@@ -12,6 +12,12 @@
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
  <script>
   $(function () {
+   alert('${name}'!=null);
+   if('${name}'!=null){
+    $("input[name='name']").val('${name}');
+     $("input[name='checker']").prop("checked", true);
+   }
+
    $("img#btnSubmit").click(function () {
     if ($("input[name='name']").val().length == 0 || $("input[name='password']").val().length == 0) {
      alert('ID OR PASS CHECK!');

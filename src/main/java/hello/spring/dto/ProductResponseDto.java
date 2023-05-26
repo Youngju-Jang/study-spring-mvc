@@ -15,7 +15,7 @@ public class ProductResponseDto {
      private int productPrice;
      private String productCategory;
      private String fileName;
-     private String id;
+     private int id;
      private String seller;
      private String regdate;
      

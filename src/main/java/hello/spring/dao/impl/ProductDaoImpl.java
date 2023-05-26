@@ -20,7 +20,8 @@ public class ProductDaoImpl implements ProductDao {
      @Override
      @Transactional
      public void productInsert(Product product) {
-     
+          ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+          productMapper.productInsert(product);
      }
      
      @Override
