@@ -1,5 +1,6 @@
 package hello.spring.dto;
 
+import hello.spring.entity.Category;
 import hello.spring.entity.Product;
 import lombok.*;
 
@@ -13,7 +14,7 @@ public class ProductResponseDto {
      private String productName;
      private String productOrigin;
      private int productPrice;
-     private String productCategory;
+     private Category productCategory;
      private String fileName;
      private int id;
      private String seller;

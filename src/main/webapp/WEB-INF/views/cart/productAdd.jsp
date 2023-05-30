@@ -37,10 +37,11 @@
                   $("form[name='frm']").prop("action", "/product/add");
               });
               // 좌측 리스트내용 채우기용 ajax
+              var page = ${page} == null ? 1 : ${page};
               $.ajax({
                   url: '${pageContext.request.contextPath}/product',
                   type: 'GET',
-                  data: { "forAdmin" : true},
+                  data: { "forAdmin" : true, "page":page},
                   contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                   success: function (data) {
                       $("div.tbWrapLt").html('');
@@ -184,7 +185,7 @@
 
                                     <p class="agr">
                                           <span class="button" id="addProduct"><a id="save">저장</a></span>
-                                          <span class="button" id="editProduct"><a id="edit">수정</a></span>
+                                          <span class="button" id="editProduct" style="display: none;"><a id="edit">수정</a></span>
                                     </p>
                               </div>
                         </div>

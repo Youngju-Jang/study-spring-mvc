@@ -53,4 +53,11 @@ public class ProductDaoImpl implements ProductDao {
           hashMap.put("no", no);
           productMapper.updateById(hashMap);
      }
+     
+     @Override
+     @Transactional
+     public void deleteById(Integer no) {
+          ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+          productMapper.deleteById(no);
+     }
 }

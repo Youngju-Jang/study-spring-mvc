@@ -1,5 +1,6 @@
 package hello.spring.dto;
 
+import hello.spring.entity.Category;
 import hello.spring.entity.Product;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,6 @@ public class ProductRequestDto {
      private String productName;
      private String productOrigin;
      private int productPrice;
-     private String productCategory;
+     private Category productCategory;
      private MultipartFile file;
 }

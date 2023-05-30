@@ -8,7 +8,7 @@
 
     $(function () {
 
-        $("a.modify_btn").click(function(event){
+        $("a.modify_btn").click(function (event) {
             event.preventDefault(); // 기본 동작 차단
             var no = $(this).attr("id"); // 버튼의 href 값을 가져옴
             var productName = $(this).closest("tr").find("td:nth-of-type(3)").text();
@@ -21,13 +21,29 @@
             $("input[name='productPrice']").val(productPrice);
             $("select[name='productCategory']").val(productCategory).prop("selected", true);
 
-            $("form[name='frm']").prop("action", "/product/edit/"+no);
+            $("form[name='frm']").prop("action", "/product/edit/" + no);
 
             $("li[id='addProduct']").removeClass('over');
             $("li[id='editProduct']").addClass('over');
             $("span[id='addProduct']").hide();
             $("span[id='editProduct']").show();
         });
+
+        $("a.delete_btn").click(function (event) {
+            event.preventDefault(); // 기본 동작 차단
+            var no = $(this).attr("id"); // 버튼의 href 값을 가져옴
+            var currentPage = $(this).closest("tr").find("td:nth-of-type(7)").text();
+
+            $("input[name='productName']").val('');
+            $("input[name='productOrigin']").val('');
+            $("input[name='productPrice']").val('');
+            $("select[name='productCategory']").val("").prop("selected", true);
+
+            if (confirm("정말 삭제하시겠습니까?")) {
+                window.location.href = '/product/delete/'+no+"?page="+currentPage;
+            }
+        });
+
 
         $("ul.pagination a").click(function (event) {
             event.preventDefault(); // 기본 동작 차단
@@ -113,14 +129,15 @@
                               <td>${product.productPrice}</td>
                               <td style="display: none;">${product.productCategory}</td>
                               <td style="display: none;">${product.productOrigin}</td>
+                              <td style="display: none;">${pageBean.currentPage}</td>
                               <td>
-                                    <span class="buttonFuc"><a href="#" class="modify_btn" id="${product.no}">수정</a></span><span
-                                        class="buttonFuc"><a href="#" class="delete_btn">삭제</a></span>
+                                    <span class="buttonFuc"><a href="#" class="modify_btn"
+                                                               id="${product.no}">수정</a></span><span
+                                        class="buttonFuc"><a href="#" class="delete_btn" id="${product.no}">삭제</a></span>
                               </td>
                         </tr>
                   </c:forEach>
                   </tbody>
             </table>
       </div>
-
 </div>

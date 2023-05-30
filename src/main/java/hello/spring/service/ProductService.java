@@ -14,4 +14,5 @@ public interface ProductService {
      public List<ProductResponseDto> selectAll(HashMap<String, Object> hashMap);
      int countAll();
      public void productEdit(ProductRequestDto productRequestDto, Integer no);
+     public void deleteById(Integer no);
 }

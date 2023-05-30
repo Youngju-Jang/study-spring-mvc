@@ -6,6 +6,7 @@ import hello.spring.entity.User;
 import hello.spring.global.Page;
 import hello.spring.global.PagingComponent;
 import hello.spring.service.ProductService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,18 @@ import java.util.List;
 public class ProductController {
      
      private final ProductService productService;
+     
+     @GetMapping(value = "/delete/{no}")
+     public String deleteProduct(@PathVariable(required = true) Integer no,
+                               @SessionAttribute (name = "user", required = false) User user,
+                                 @RequestParam (defaultValue = "1") int page){
+          if(user == null){
+               return "redirect:/login";
+          }
+          productService.deleteById(no);
+          return "redirect:/product/add?page="+page;
+     }
+     
      
      @PostMapping (value = "/edit/{no}") // 제품등록
      public String editProduct(@ModelAttribute ProductRequestDto productRequestDto,
@@ -48,10 +61,13 @@ public class ProductController {
      
      @GetMapping ("/add")
      public String getProductView(
-          @SessionAttribute (name = "user", required = false) User user) {
+                    @SessionAttribute (name = "user", required = false) User user,
+                    @RequestParam (defaultValue = "1") int page,
+                    Model model){
           if (user == null) {
                return "redirect:/login";
           }
+          model.addAttribute("page", page);
           return "/cart/productAdd";
      }
      

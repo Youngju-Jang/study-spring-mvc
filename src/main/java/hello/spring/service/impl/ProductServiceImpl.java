@@ -92,6 +92,10 @@ public class ProductServiceImpl implements ProductService {
           }
           oriProduct.updateProduct(productRequestDto);
           productDao.updateById(oriProduct, no);
-          
+     }
+     
+     @Override
+     public void deleteById(Integer no) {
+          productDao.deleteById(no);
      }
 }

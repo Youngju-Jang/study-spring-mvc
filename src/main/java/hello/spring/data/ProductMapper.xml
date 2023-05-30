@@ -42,4 +42,8 @@
             PRODUCTFILENAME = #{product.productFileName}
         where no = #{no}
     </update>
+    <delete id="deleteById" parameterType="int">
+        delete from product
+        where no = #{no}
+    </delete>
 </mapper>

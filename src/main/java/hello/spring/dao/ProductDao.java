@@ -11,4 +11,5 @@ public interface ProductDao {
      int countAll();
      Product selectById(int no);
      void updateById(Product oriProduct, Integer no);
+     void deleteById(Integer no);
 }

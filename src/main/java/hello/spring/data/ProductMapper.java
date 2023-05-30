@@ -11,4 +11,5 @@ public interface ProductMapper {
      void productInsert(Product product);
      Product selectById(int no);
      void updateById(HashMap<String, Object> hashMap);
+     void deleteById(int no);
 }
