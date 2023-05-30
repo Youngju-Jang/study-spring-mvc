@@ -25,45 +25,34 @@ public class ProductController {
      
      private final ProductService productService;
      
+     @PostMapping (value = "/edit/{no}") // 제품등록
+     public String editProduct(@ModelAttribute ProductRequestDto productRequestDto,
+                              HttpServletRequest request,
+                              @PathVariable(required = true) Integer no,
+                              @SessionAttribute (name = "user", required = false) User user) throws IOException {
+          log.info("productRequestDto = {}, request = {}, no = {}, user = {}", productRequestDto, request, no, user);
+          
+          productService.productEdit(productRequestDto, no);
+          return "redirect:/product/add";
+     }
+     
      @PostMapping (value = "/add") // 제품등록
      public String addProduct(@ModelAttribute ProductRequestDto productRequestDto,
-                              HttpServletRequest request) throws IOException {
-          User user = (User) request.getSession().getAttribute("user");
+                              HttpServletRequest request,
+                              @SessionAttribute (name = "user", required = false) User user) throws IOException {
+          
           productService.productInsert(productRequestDto, user);
           
           return "redirect:/product/add";
      }
      
      @GetMapping ("/add")
-     public String getProductView(HttpServletRequest request) {
-          User user = (User) request.getSession().getAttribute("user");
+     public String getProductView(
+          @SessionAttribute (name = "user", required = false) User user) {
           if (user == null) {
-               System.out.println("ProductController.getProductView");
                return "redirect:/login";
           }
           return "/cart/productAdd";
-     }
-     
-     @GetMapping ("/pageBean")
-     public String getPageBean(@RequestParam (defaultValue = "1") int page,
-                               @RequestParam (defaultValue = "") String search,
-                               @RequestParam (defaultValue = "") String option, // enum으로 변경하기 PRODUCTNAME,PRODCUTCATEGORY, PRODCUTORIGIN
-                               @RequestParam (defaultValue = "false") boolean forAdmin,
-                               Model model) {
-          int totalRow = productService.countAll(); // 제품테이블 전체로우수
-          Page pageBean = getPageBean(page, totalRow);
-          
-          System.out.println("forAdmin " + forAdmin);
-          
-          HashMap<String, Object> map = createMap(search, option, pageBean); // db파라미터용 map 생성
-          List<ProductResponseDto> productList = productService.selectAll(map); // 페이징처리한 제품리스트
-          
-          model.addAttribute("pageBean", pageBean);
-          model.addAttribute("productList", productList);
-          model.addAttribute("search", search);
-          model.addAttribute("option", option);
-          
-          return "cart/paginationView";
      }
      
      @GetMapping
@@ -84,7 +73,6 @@ public class ProductController {
           model.addAttribute("option", option);
           
           if (forAdmin) {
-//               return "cart/productAddView";
                return "cart/paginationView";
           }
           

@@ -28,4 +28,18 @@
         insert into product(PRODUCTNAME,productOrigin,productPrice,productCategory,PRODUCTFILENAME,ID,TODAY)
         values(#{productName},#{productOrigin},#{productPrice},#{productCategory},#{productFileName},#{id},now())
     </insert>
+    <select id="selectById" resultType="Product" parameterType="int">
+        select *
+        from product
+        where no = #{no}
+    </select>
+    <update id="updateById" parameterType="java.util.HashMap">
+        update product
+        set productname = #{product.productName},
+            productorigin = #{product.productOrigin},
+            productprice = #{product.productPrice},
+            productcategory = #{product.productCategory},
+            PRODUCTFILENAME = #{product.productFileName}
+        where no = #{no}
+    </update>
 </mapper>

@@ -37,4 +37,20 @@ public class ProductDaoImpl implements ProductDao {
           ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
           return productMapper.countAll();
      }
+     
+     @Override
+     public Product selectById(int no) {
+          ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+          return productMapper.selectById(no);
+     }
+     
+     @Override
+     @Transactional
+     public void updateById(Product product, Integer no) {
+          ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+          HashMap<String, Object> hashMap = new HashMap<>();
+          hashMap.put("product", product);
+          hashMap.put("no", no);
+          productMapper.updateById(hashMap);
+     }
 }

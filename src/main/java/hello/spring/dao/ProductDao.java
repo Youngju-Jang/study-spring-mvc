@@ -9,4 +9,6 @@ public interface ProductDao {
      public void productInsert(Product product);
      List<Product> selectAll(HashMap<String, Object> hashMap);
      int countAll();
+     Product selectById(int no);
+     void updateById(Product oriProduct, Integer no);
 }

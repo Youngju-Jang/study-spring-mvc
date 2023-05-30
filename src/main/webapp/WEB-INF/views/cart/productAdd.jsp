@@ -22,48 +22,27 @@
               //     // location.replace = '/login';
               // }
 
-              // 첫화면 pagination 용
-              <%--$.ajax({--%>
-              <%--    url: '${pageContext.request.contextPath}/product/pageBean',--%>
-              <%--    type: 'GET',--%>
-              <%--    data: '',--%>
-              <%--    contentType: 'application/x-www-form-urlencoded; charset=euc-kr',--%>
-              <%--    success: function (data) {--%>
-              <%--        console.log(data);--%>
-              <%--        $("ul.pagination").html('');--%>
-              <%--        $("ul.pagination").html(data);--%>
-              <%--    }, error: function () {--%>
-              <%--        console.log('error');--%>
-              <%--    }--%>
-              <%--});--%>
+            // 상품등록 버튼 클릭시 수정아닌 버튼으로 작동하도록
+              $("li[id='addProduct']").click(function(){
+                  $("li[id='addProduct']").addClass('over');
+                  $("li[id='editProduct']").removeClass('over');
+                  $("span[id='addProduct']").show();
+                  $("span[id='editProduct']").hide();
 
-              // $("ul.pagination a").click(function (event) {
-              //     event.preventDefault(); // 기본 동작 차단
-              //     var href = $(this).attr("href"); // 버튼의 href 값을 가져옴
-              //     alert("버튼의 링크: " + href);
-              //
-              //     $.ajax({
-              //         url: href,
-              //         type: 'GET',
-              //         data: '',
-              //         contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
-              //         success: function (data) {
-              //             $("ul.pagination").html('');
-              //             $("ul.pagination").html(data);
-              //         }, error: function () {
-              //             console.log('error');
-              //         }
-              //     });
-              // });
+                  $("input[name='productName']").val('');
+                  $("input[name='productOrigin']").val('');
+                  $("input[name='productPrice']").val('');
+                  $("select[name='productCategory']").val("").prop("selected", true);
 
+                  $("form[name='frm']").prop("action", "/product/add");
+              });
               // 좌측 리스트내용 채우기용 ajax
               $.ajax({
-                  url: '${pageContext.request.contextPath}/product?forAdmin=true',
+                  url: '${pageContext.request.contextPath}/product',
                   type: 'GET',
-                  data: '',
+                  data: { "forAdmin" : true},
                   contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                   success: function (data) {
-                      console.log(data);
                       $("div.tbWrapLt").html('');
                       $("div.tbWrapLt").html(data);
                   }, error: function () {
@@ -71,7 +50,7 @@
                   }
               });
 
-              $("a#save").click(function () {
+              $("a#save, a#edit").click(function () {
                   if ($("select[name='productCategory']").val() == '') {
                       alert("카테고리를 선택해주세요");
                       return false;
@@ -134,7 +113,8 @@
 
                                     <div class="tbWrapRt">
                                           <ul class="tabA clfix mgb15">
-                                                <li class="over"><a href="#info1">01. 상품등록</a></li>
+                                                <li class="over" id="addProduct"><a>01. 상품등록</a></li>
+                                                <li id="editProduct"><a>02. 상품수정</a></li>
                                           </ul>
                                           <form action="${pageContext.request.contextPath}/product/add" name="frm"
                                                 enctype="multipart/form-data"
@@ -147,6 +127,7 @@
                                                                   <col/>
                                                             </colgroup>
                                                             <tbody>
+
                                                             <tr>
                                                                   <th>상품명</th>
                                                                   <td><input type="text"
@@ -202,7 +183,8 @@
                                     </div>
 
                                     <p class="agr">
-                                          <span class="button"><a id="save">저장</a></span>
+                                          <span class="button" id="addProduct"><a id="save">저장</a></span>
+                                          <span class="button" id="editProduct"><a id="edit">수정</a></span>
                                     </p>
                               </div>
                         </div>

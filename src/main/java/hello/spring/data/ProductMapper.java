@@ -9,4 +9,6 @@ public interface ProductMapper {
      int countAll();
      List<Product> selectAll(HashMap<String, Object> hashMap);
      void productInsert(Product product);
+     Product selectById(int no);
+     void updateById(HashMap<String, Object> hashMap);
 }

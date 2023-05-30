@@ -8,6 +8,7 @@ import hello.spring.entity.User;
 import hello.spring.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,10 +33,14 @@ public class ProductServiceImpl implements ProductService {
      @Override // 상품 Insert
      public void productInsert(ProductRequestDto productRequestDto, User user) {
           // get file String name from multipart
-          FileOutputStream fos;
-          MultipartFile file = productRequestDto.getFile();
-          String fileDemo = createFileName(file.getOriginalFilename());
-          saveImage(file, fileDemo);
+          String fileDemo = null;
+          if (!productRequestDto.getFile().isEmpty()) {
+               MultipartFile file = productRequestDto.getFile();
+               fileDemo = createFileName(file.getOriginalFilename());
+               saveImage(file, fileDemo);
+          } else {
+               System.out.println("file is null");
+          }
           // dto to entity
           productDao.productInsert(new Product(productRequestDto, user.getUserId(), fileDemo));
      }
@@ -44,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
      private void saveImage(MultipartFile file, String fileDemo) {
           FileOutputStream fos;
           if (fileDemo.length() > 0) {
-               try{
+               try {
                     fos = new FileOutputStream(downImagePath + fileDemo);
                     fos.write(file.getBytes());
                } catch (Exception e) {
@@ -52,6 +57,7 @@ public class ProductServiceImpl implements ProductService {
                }
           }
      }
+     
      // 먼저 파일 업로드 시, 파일명을 난수화하기 위해 random으로 돌립니다.
      private String createFileName(String fileName) {
           return UUID.randomUUID().toString().concat(fileName);
@@ -69,5 +75,23 @@ public class ProductServiceImpl implements ProductService {
      @Override
      public int countAll() {
           return productDao.countAll();
+     }
+     
+     @Override
+//     @Transactional
+     public void productEdit(ProductRequestDto productRequestDto, Integer no) {
+          // 기존 제품 존재여부 확인
+          Product oriProduct = productDao.selectById(no);
+          // file 존재여부 확인
+          String fileDemo = null;
+          if (!productRequestDto.getFile().isEmpty()) {
+               MultipartFile file = productRequestDto.getFile();
+               fileDemo = createFileName(file.getOriginalFilename());
+               saveImage(file, fileDemo);
+               oriProduct.setProductFileName(fileDemo);
+          }
+          oriProduct.updateProduct(productRequestDto);
+          productDao.updateById(oriProduct, no);
+          
      }
 }

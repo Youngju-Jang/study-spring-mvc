@@ -26,4 +26,11 @@ public class Product {
           this.productFileName = fileName;
           this.id = userId;
      }
+     
+     public void updateProduct(ProductRequestDto dto) {
+          this.productName = dto.getProductName();
+          this.productOrigin = dto.getProductOrigin();
+          this.productPrice = dto.getProductPrice();
+          this.productCategory = dto.getProductCategory();
+     }
 }
