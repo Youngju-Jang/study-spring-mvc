@@ -14,7 +14,18 @@
       <meta http-equiv="imagetoolbar" content="no"/>
       <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css"/>
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+      <script>
+            $(function(){
+                $("a#addCart").click(function(e){
+                    e.preventDefault();
+                    var checkedCount = $("input[type='checkbox']:checked").length;
+                    if(checkedCount == 0){
+                        return false;
+                    }
+                    $("form[name='addCart']").submit();
+                });
+            })
+      </script>
 </head>
 <body>
 <div id="wrap">
@@ -33,7 +44,8 @@
                               <div class="btnSet clfix mgb15">
 						<span class="fr">
 							<span class="button"><a href="">목록</a></span>
-							<span class="button"><a href="/product/add">등록/수정</a></span>
+							<span class="button"><a href="#" id="addCart">장바구니 추가</a></span>
+							<span class="button"><a href="/product/add">등록 / 수정</a></span>
 						</span>
                               </div>
                               <form action="clientList.do" method="post" name="search">
@@ -69,62 +81,66 @@
                                           </tbody>
                                     </table>
                               </form>
-                              <table class="bbsList">
-                                    <colgroup>
-                                          <col width="80"/>
-                                          <col width="170"/>
-                                          <col width="170"/>
-                                          <col width="170"/>
-                                          <col width="170"/>
-                                          <col width="170"/>
-                                          <col width="170"/>
-                                          <col width="170"/>
-                                    </colgroup>
-                                    <thead>
-
-                                    <tr>
-                                          <th scope="col">NO.</th>
-                                          <th scope="col">상품명</th>
-                                          <th scope="col">이미지</th>
-                                          <th scope="col">원산지</th>
-                                          <th scope="col">가격</th>
-                                          <th scope="col">종류</th>
-                                          <th scope="col">날짜</th>
-                                          <th scope="col">판매자</th>
-
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <c:forEach items="${productList}" var="product" varStatus="i">
+                              <form action="${pageContext.request.contextPath}/cart/add" method="post" name="addCart">
+                                    <table class="bbsList">
+                                          <colgroup>
+                                                <col width="80"/>
+                                                <col width="80"/>
+                                                <col width="170"/>
+                                                <col width="170"/>
+                                                <col width="170"/>
+                                                <col width="170"/>
+                                                <col width="170"/>
+                                                <col width="170"/>
+                                                <col width="170"/>
+                                          </colgroup>
+                                          <thead>
 
                                           <tr>
-                                                <td>${product.no}</td>
-                                                <td>${product.productName}</td>
-                                                <c:choose>
-                                                      <c:when test="${not empty product.fileName}">
-                                                            <td>
-                                                                  <img src="${pageContext.request.contextPath}/resources/downImage/${product.fileName}" width="50" height="50"/>
-                                                            </td>
-                                                      </c:when>
-                                                      <c:otherwise>
-                                                            <td></td>
-                                                      </c:otherwise>
-                                                </c:choose>
-                                                <td>${product.productOrigin}</td>
-                                                <td>${product.productPrice}</td>
-                                                <td>${product.productCategory}</td>
-                                                <td>${product.regdate}</td>
-                                                <td>${product.seller}</td>
+                                                <th scope="col">장바구니</th>
+                                                <th scope="col">NO.</th>
+                                                <th scope="col">상품명</th>
+                                                <th scope="col">이미지</th>
+                                                <th scope="col">원산지</th>
+                                                <th scope="col">가격</th>
+                                                <th scope="col">종류</th>
+                                                <th scope="col">날짜</th>
+                                                <th scope="col">판매자</th>
+
                                           </tr>
-                                    </c:forEach>
-                                    </tbody>
-                              </table>
+                                          </thead>
+
+                                          <tbody>
+                                          <c:forEach items="${productList}" var="product" varStatus="i">
+                                                <tr>
+                                                      <td><input type="checkbox" name="checkNo" value="${product.no}"/></td>
+                                                      <td>${product.no}</td>
+                                                      <td>${product.productName}</td>
+                                                      <c:choose>
+                                                            <c:when test="${not empty product.fileName}">
+                                                                  <td>
+                                                                        <img src="${pageContext.request.contextPath}/resources/downImage/${product.fileName}"
+                                                                             width="50" height="50"/>
+                                                                  </td>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                  <td></td>
+                                                            </c:otherwise>
+                                                      </c:choose>
+                                                      <td>${product.productOrigin}</td>
+                                                      <td>${product.productPrice}</td>
+                                                      <td>${product.productCategory}</td>
+                                                      <td>${product.regdate}</td>
+                                                      <td>${product.seller}</td>
+                                                </tr>
+                                          </c:forEach>
+                                          </tbody>
+                                    </table>
+                              </form>
                         </div>
                   </div>
             </div>
       </div>
-
       <!--Footer-->
 
       <!--END Footer-->

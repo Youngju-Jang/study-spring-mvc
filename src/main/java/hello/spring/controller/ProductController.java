@@ -28,7 +28,7 @@ public class ProductController {
      
      @GetMapping(value = "/delete/{no}")
      public String deleteProduct(@PathVariable(required = true) Integer no,
-                               @SessionAttribute (name = SessionConst.LOGIN_USER, required = false) User user,
+                                 @SessionAttribute (name = SessionConst.LOGIN_USER) User user,
                                  @RequestParam (defaultValue = "1") int page){
           productService.deleteById(no);
           return "redirect:/product/add?page="+page;
