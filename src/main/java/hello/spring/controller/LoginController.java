@@ -31,6 +31,7 @@ public class LoginController {
      @PostMapping ("/login")
      public String postLogin(@ModelAttribute User user,
                              @RequestParam (value = "checker") String checker,
+                             @RequestParam (defaultValue = "/product") String redirectURL,
                              HttpServletRequest request
                               , HttpServletResponse response) {
           String name = user.getName();
@@ -46,7 +47,7 @@ public class LoginController {
           User existUser = userService.selectByName(name);
           if (existUser.getPassword().equals(password)) {
                request.getSession().setAttribute(SessionConst.LOGIN_USER, existUser);
-               return "redirect:/product";
+               return "redirect:"+redirectURL;
           }
           return "/cart/adminLogin";
      }
