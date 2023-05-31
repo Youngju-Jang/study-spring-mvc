@@ -7,13 +7,11 @@ import hello.spring.entity.User;
 import hello.spring.global.Page;
 import hello.spring.global.PagingComponent;
 import hello.spring.service.ProductService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.SessionScope;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
