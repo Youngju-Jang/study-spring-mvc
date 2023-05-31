@@ -113,7 +113,7 @@
                                           <tbody>
                                           <c:forEach items="${productList}" var="product" varStatus="i">
                                                 <tr>
-                                                      <td><input type="checkbox" name="checkNo" value="${product.no}"/></td>
+                                                      <td><input type="checkbox" name="newCartSet" value="${product.no}"/></td>
                                                       <td>${product.no}</td>
                                                       <td>${product.productName}</td>
                                                       <c:choose>
