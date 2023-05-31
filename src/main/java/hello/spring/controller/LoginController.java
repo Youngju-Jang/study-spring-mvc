@@ -1,5 +1,6 @@
 package hello.spring.controller;
 
+import hello.spring.SessionConst;
 import hello.spring.entity.User;
 import hello.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class LoginController {
           }
           User existUser = userService.selectByName(name);
           if (existUser.getPassword().equals(password)) {
-               request.getSession().setAttribute("user", existUser);
+               request.getSession().setAttribute(SessionConst.LOGIN_USER, existUser);
                return "redirect:/product";
           }
           return "/cart/adminLogin";

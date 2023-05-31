@@ -16,11 +16,6 @@
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script>
           $(function () {
-              // user로그인여부 확인
-              var userName = '${user.name}';
-              // if (userName == '') {
-              //     // location.replace = '/login';
-              // }
 
             // 상품등록 버튼 클릭시 수정아닌 버튼으로 작동하도록
               $("li[id='addProduct']").click(function(){

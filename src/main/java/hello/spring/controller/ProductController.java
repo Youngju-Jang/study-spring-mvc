@@ -1,5 +1,6 @@
 package hello.spring.controller;
 
+import hello.spring.SessionConst;
 import hello.spring.dto.ProductRequestDto;
 import hello.spring.dto.ProductResponseDto;
 import hello.spring.entity.User;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.SessionScope;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -28,11 +30,8 @@ public class ProductController {
      
      @GetMapping(value = "/delete/{no}")
      public String deleteProduct(@PathVariable(required = true) Integer no,
-                               @SessionAttribute (name = "user", required = false) User user,
+                               @SessionAttribute (name = SessionConst.LOGIN_USER, required = false) User user,
                                  @RequestParam (defaultValue = "1") int page){
-          if(user == null){
-               return "redirect:/login";
-          }
           productService.deleteById(no);
           return "redirect:/product/add?page="+page;
      }
@@ -42,7 +41,7 @@ public class ProductController {
      public String editProduct(@ModelAttribute ProductRequestDto productRequestDto,
                               HttpServletRequest request,
                               @PathVariable(required = true) Integer no,
-                              @SessionAttribute (name = "user", required = false) User user) throws IOException {
+                              @SessionAttribute (name = SessionConst.LOGIN_USER, required = false) User user) throws IOException {
           log.info("productRequestDto = {}, request = {}, no = {}, user = {}", productRequestDto, request, no, user);
           
           productService.productEdit(productRequestDto, no);
@@ -52,7 +51,7 @@ public class ProductController {
      @PostMapping (value = "/add") // 제품등록
      public String addProduct(@ModelAttribute ProductRequestDto productRequestDto,
                               HttpServletRequest request,
-                              @SessionAttribute (name = "user", required = false) User user) throws IOException {
+                              @SessionAttribute (name = SessionConst.LOGIN_USER, required = false) User user) throws IOException {
           
           productService.productInsert(productRequestDto, user);
           
@@ -61,12 +60,9 @@ public class ProductController {
      
      @GetMapping ("/add")
      public String getProductView(
-                    @SessionAttribute (name = "user", required = false) User user,
+                    @SessionAttribute (name = SessionConst.LOGIN_USER, required = false) User user,
                     @RequestParam (defaultValue = "1") int page,
                     Model model){
-          if (user == null) {
-               return "redirect:/login";
-          }
           model.addAttribute("page", page);
           return "/cart/productAdd";
      }
