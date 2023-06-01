@@ -35,7 +35,7 @@
               $.ajax({
                   url: '${pageContext.request.contextPath}/product',
                   type: 'GET',
-                  data: { "forAdmin" : true, "page":page},
+                  data: { "state" : "addProduct", "page":page},
                   contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                   success: function (data) {
                       $("div.tbWrapLt").html('');
@@ -74,7 +74,7 @@
 
                         <div class="contents">
                               <div class="btnSet clfix mgb15">
-						<span class="fr"> <span class="button"><a href="#">목록</a></span>
+						<span class="fr"> <span class="button"><a href="${pageContext.request.contextPath}/product">목록</a></span>
 						</span>
                               </div>
 

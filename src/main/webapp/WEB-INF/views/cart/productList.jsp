@@ -15,16 +15,45 @@
       <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css"/>
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script>
-            $(function(){
-                $("a#addCart").click(function(e){
-                    e.preventDefault();
-                    var checkedCount = $("input[type='checkbox']:checked").length;
-                    if(checkedCount == 0){
-                        return false;
-                    }
-                    $("form[name='addCart']").submit();
-                });
-            })
+          $(function () {
+              var search = "${search}";
+              var option = "${option}";
+              var page = "${pageBean.currentPage}";
+
+              $("a#addCart").click(function (e) {
+                  e.preventDefault();
+                  var checkedCount = $("input[type='checkbox']:checked").length;
+                  if (checkedCount == 0) {
+                      return false;
+                  }
+                  $("form[name='addCart']").submit();
+              });
+
+              $("a#showMore").click(function (e) {
+                  console.log("page : " + page);
+                  e.preventDefault();
+                  $.ajax({
+                      url: '${pageContext.request.contextPath}/product',
+                      type: 'GET',
+                      data: {
+                          "state": "productListView",
+                          "page": parseInt(page)+1,
+                          "search": search,
+                          "option": option
+                      },
+                      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+                  }).done(function (data) {
+                      $('tbody#dataRows').append(data);
+                      $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+                      page++;
+                      if(page==${pageBean.totalPage}){
+                          $("a#showMore").hide();
+                      }
+                  }).fail(function () {
+                      console.log('error');
+                  });
+              });
+          })
       </script>
 </head>
 <body>
@@ -110,10 +139,11 @@
                                           </tr>
                                           </thead>
 
-                                          <tbody>
+                                          <tbody id="dataRows">
                                           <c:forEach items="${productList}" var="product" varStatus="i">
                                                 <tr>
-                                                      <td><input type="checkbox" name="newCartSet" value="${product.no}"/></td>
+                                                      <td><input type="checkbox" name="newCartSet"
+                                                                 value="${product.no}"/></td>
                                                       <td>${product.no}</td>
                                                       <td>${product.productName}</td>
                                                       <c:choose>
@@ -137,6 +167,7 @@
                                           </tbody>
                                     </table>
                               </form>
+                              <a id="showMore" href="#">더보기</a>
                         </div>
                   </div>
             </div>

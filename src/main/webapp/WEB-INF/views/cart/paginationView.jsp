@@ -52,7 +52,7 @@
             $.ajax({
                 url: href,
                 type: 'GET',
-                data: {"forAdmin": true},
+                data: {"state": "addProduct"},
                 contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                 success: function (data) {
                     $("div#paginationView").html('');
