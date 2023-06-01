@@ -73,8 +73,8 @@ public class ProductServiceImpl implements ProductService {
      }
      
      @Override
-     public int countAll() {
-          return productDao.countAll();
+     public int countAll(String search, String option) {
+          return productDao.countAll(search, option);
      }
      
      @Override

@@ -20,9 +20,12 @@
         order by no desc) PRODUCT
         where rm between ((#{pageBean.currentPage}-1)*#{pageBean.pageScale} +1) and (#{pageBean.currentPage}*#{pageBean.pageScale})
     </select>
-    <select id="countAll" resultType="int">
+    <select id="countAll" resultType="int" parameterType="java.util.HashMap">
         select count(1)
         from product
+        <if test="search != null and search != ''">
+        where ${option} like CONCAT('%',#{search},'%')
+        </if>
     </select>
     <insert id="productInsert" parameterType="Product">
         insert into product(PRODUCTNAME,productOrigin,productPrice,productCategory,PRODUCTFILENAME,ID,TODAY)

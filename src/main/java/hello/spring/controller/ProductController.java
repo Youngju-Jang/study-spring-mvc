@@ -71,7 +71,7 @@ public class ProductController {
                            @RequestParam (defaultValue = "") String option, // enum으로 변경하기 PRODUCTNAME,PRODCUTCATEGORY, PRODCUTORIGIN
                            @RequestParam (defaultValue = "") String state,
                            Model model) {
-          int totalRow = productService.countAll(); // 제품테이블 전체로우수
+          int totalRow = productService.countAll(search, option); // 제품테이블 전체로우수
           Page pageBean = getPageBean(page, totalRow);
           
           HashMap<String, Object> map = createMap(search, option, pageBean); // db파라미터용 map 생성

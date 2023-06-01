@@ -20,6 +20,25 @@
               var option = "${option}";
               var page = "${pageBean.currentPage}";
 
+              if(page==${pageBean.totalPage}){
+                  $("a#showMore").hide();
+              }
+              $("select[name='query']").val(option).prop("selected", true);
+              $("input[name='data']").val(search);
+
+              // 검색버튼 클릭시
+              $("a#search").click(function(e){
+                  e.preventDefault();
+                  var option = $("select#query").val();
+                  if(option == '' || option==null){
+                      alert("옵션을 선택해주세요");
+                      return false;
+                  }
+                  var search = $("input[name='data']").val();
+                  window.location.href = '${pageContext.request.contextPath}/product?search='+search+'&option='+option;
+              })
+
+              // 장바구니 추가버튼
               $("a#addCart").click(function (e) {
                   e.preventDefault();
                   var checkedCount = $("input[type='checkbox']:checked").length;
@@ -29,6 +48,7 @@
                   $("form[name='addCart']").submit();
               });
 
+              // 더보기 버튼
               $("a#showMore").click(function (e) {
                   console.log("page : " + page);
                   e.preventDefault();
@@ -94,7 +114,7 @@
                                                 </select></td>
                                                 <th>
                                                       <select id="query" name="query">
-                                                            <option selected="selected">선택하세요</option>
+                                                            <option selected="selected" value="">선택하세요</option>
                                                             <option value="productName">상품명</option>
                                                             <option value="productOrigin">원산지</option>
                                                             <option value="productCategory">카테고리</option>
@@ -104,7 +124,7 @@
                                                            style="border:1px solid #ddd; height:20px;" class="inputText"
                                                            size="30"/>
                                                       <span class="button"><a href="#" id="search">검색</a></span>
-                                                      <span class="button"><a href="clientList.do" id="search">새로고침</a></span>
+                                                      <span class="button"><a href="${pageContext.request.contextPath}/product" id="reset">새로고침</a></span>
                                                 </td>
                                           </tr>
                                           </tbody>
@@ -167,6 +187,7 @@
                                           </tbody>
                                     </table>
                               </form>
+                              <br>
                               <a id="showMore" href="#">더보기</a>
                         </div>
                   </div>

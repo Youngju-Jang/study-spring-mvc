@@ -33,9 +33,12 @@ public class ProductDaoImpl implements ProductDao {
      }
      
      @Override
-     public int countAll() {
+     public int countAll(String search, String option) {
           ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
-          return productMapper.countAll();
+          HashMap<String, String> map = new HashMap<>();
+          map.put("search", search);
+          map.put("option", option);
+          return productMapper.countAll(map);
      }
      
      @Override
