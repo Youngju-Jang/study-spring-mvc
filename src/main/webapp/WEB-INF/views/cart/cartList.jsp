@@ -75,20 +75,20 @@
                                           <th scope="col">원산지</th>
                                           <th scope="col">가격</th>
                                           <th scope="col">종류</th>
-                                          <th scope="col">날짜</th>
+                                          <th scope="col">수량</th>
                                           <th scope="col">상태</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${productList}" var="product" varStatus="i">
+                                    <c:forEach items="${cartSet}" var="cart" varStatus="i">
                                           <tr>
-                                                <td>${product.no}</td>
-                                                <td>${product.productName}</td>
+                                                <td>${cart.no}</td>
+                                                <td>${cart.productName}</td>
                                                 <c:choose>
-                                                      <c:when test="${not empty product.fileName}">
+                                                      <c:when test="${not empty cart.fileName}">
                                                             <td>
                                                                   <a>
-                                                                        <img src="${pageContext.request.contextPath}/resources/downImage/${product.fileName}"
+                                                                        <img src="${pageContext.request.contextPath}/resources/downImage/${cart.fileName}"
                                                                              width="50" height="50"/>
                                                                   </a>
                                                             </td>
@@ -97,10 +97,10 @@
                                                             <td></td>
                                                       </c:otherwise>
                                                 </c:choose>
-                                                <td>${product.productOrigin}</td>
-                                                <td>${product.productPrice}</td>
-                                                <td>${product.productCategory}</td>
-                                                <td>${product.regdate}</td>
+                                                <td>${cart.productOrigin}</td>
+                                                <td>${cart.productPrice}</td>
+                                                <td>${cart.productCategory}</td>
+                                                <td>${cart.count}</td>
                                                 <td>
 										<span class="buttonFuc"><a href="#">구매</a>
 										</span>

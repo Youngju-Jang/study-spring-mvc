@@ -119,24 +119,24 @@
                   </thead>
 
                   <tbody>
-                  <c:forEach items="${productList}" var="product" varStatus="i">
+                  <c:forEach items="${productList}" var="cart" varStatus="i">
                         <tr>
-                              <td>${product.no}</td>
+                              <td>${cart.no}</td>
                               <td>
-                                    <c:if test="${not empty product.fileName}">
-                                          <img src="${pageContext.request.contextPath}/resources/downImage/${product.fileName}"
+                                    <c:if test="${not empty cart.fileName}">
+                                          <img src="${pageContext.request.contextPath}/resources/downImage/${cart.fileName}"
                                                width="50" height="50"/>
                                     </c:if>
                               </td>
-                              <td>${product.productName}</td>
-                              <td>${product.productPrice}</td>
-                              <td style="display: none;">${product.productCategory}</td>
-                              <td style="display: none;">${product.productOrigin}</td>
+                              <td>${cart.productName}</td>
+                              <td>${cart.productPrice}</td>
+                              <td style="display: none;">${cart.productCategory}</td>
+                              <td style="display: none;">${cart.productOrigin}</td>
                               <td style="display: none;">${pageBean.currentPage}</td>
                               <td>
                                     <span class="buttonFuc"><a href="#" class="modify_btn"
-                                                               id="${product.no}">수정</a></span><span
-                                        class="buttonFuc"><a href="#" class="delete_btn" id="${product.no}">삭제</a></span>
+                                                               id="${cart.no}">수정</a></span><span
+                                        class="buttonFuc"><a href="#" class="delete_btn" id="${cart.no}">삭제</a></span>
                               </td>
                         </tr>
                   </c:forEach>

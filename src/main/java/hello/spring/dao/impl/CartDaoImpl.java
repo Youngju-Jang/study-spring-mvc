@@ -16,10 +16,10 @@ public class CartDaoImpl implements CartDao {
      private final SqlSessionTemplate sqlSession;
      
      @Override
-     public List<Product> selectAllByNoSet(Set<Integer> newCartSet) {
+     public List<Product> selectAllByNoList(Set<Integer> newCartNoSet) {
           List<Product> productList = null;
           CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-          productList = mapper.selectAllByNoSet(newCartSet);
+          productList = mapper.selectAllByNoSet(newCartNoSet);
           return productList;
      }
 }

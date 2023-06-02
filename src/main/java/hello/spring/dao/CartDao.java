@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface CartDao {
-     List<Product> selectAllByNoSet(Set<Integer> newCartSet);
+     List<Product> selectAllByNoList(Set<Integer> newCartSet);
      
 }
