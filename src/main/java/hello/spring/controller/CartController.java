@@ -31,8 +31,11 @@ public class CartController {
                            HttpServletRequest request) {
           // 기존세션에 없는 cart intSet 뽑기
           Set<Integer> filteredNewIntSet = getFilteredNewIntSet(oriCartSet, newCartIntSet);
-          List<Cart> newCartSet = cartService.selectAllByNoSet(filteredNewIntSet); // 여기 Ori new 합쳐야함. 중복시 기존껄로
+          List<Cart> newCartSet = null;
           
+          if (!filteredNewIntSet.isEmpty()) { // 겹치는거 빼고나니 새로 추가된 장바구니가 없는경우
+               newCartSet = cartService.selectAllByNoSet(filteredNewIntSet); // 여기 Ori new 합쳐야함. 중복시 기존껄로
+          }
           if (oriCartSet != null) {
                newCartSet = concatOriNew(oriCartSet, newCartSet);
           }
@@ -42,6 +45,9 @@ public class CartController {
      
      // 기존 CartSet 와 새 CartSet 합치기
      private static List<Cart> concatOriNew(List<Cart> oriCartSet, List<Cart> newCartSet) {
+          if(newCartSet == null){
+               return oriCartSet;
+          }
           return Stream.concat(oriCartSet.stream(), newCartSet.stream())
                .sorted(Comparator.comparingInt(Cart::getNo))
                .collect(Collectors.toList());

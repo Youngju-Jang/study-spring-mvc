@@ -100,7 +100,7 @@
                                                 <td>${cart.productOrigin}</td>
                                                 <td>${cart.productPrice}</td>
                                                 <td>${cart.productCategory}</td>
-                                                <td>${cart.count}</td>
+                                                <td><input type="number" name="count" value="${cart.count}"/></td>
                                                 <td>
 										<span class="buttonFuc"><a href="#">구매</a>
 										</span>
