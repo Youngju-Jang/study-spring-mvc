@@ -50,9 +50,7 @@ public class ProductController {
      public String addProduct(@ModelAttribute ProductRequestDto productRequestDto,
                               HttpServletRequest request,
                               @SessionAttribute (name = SessionConst.LOGIN_USER, required = false) User user) throws IOException {
-          
           productService.productInsert(productRequestDto, user);
-          
           return "redirect:/product/add";
      }
      

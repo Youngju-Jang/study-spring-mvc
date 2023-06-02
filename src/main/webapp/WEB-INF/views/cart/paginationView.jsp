@@ -7,6 +7,8 @@
 <script>
 
     $(function () {
+        var search = "${search}";
+        var option = "${option}";
 
         $("a.modify_btn").click(function (event) {
             event.preventDefault(); // 기본 동작 차단
@@ -52,7 +54,8 @@
             $.ajax({
                 url: href,
                 type: 'GET',
-                data: {"state": "addProduct"},
+                data: {"state": "addProduct"
+                },
                 contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                 success: function (data) {
                     $("div#paginationView").html('');

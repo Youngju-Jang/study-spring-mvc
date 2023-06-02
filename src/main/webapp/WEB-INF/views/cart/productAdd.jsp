@@ -15,6 +15,36 @@
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
       <script>
           $(function () {
+              var search = "${search}";
+              var option = "${option}";
+              var page = ${page} == null ? 1 : ${page};
+
+              $("input[name='data']").val(search);
+
+              //검색시
+              $("a#search").click(function(e){
+                  e.preventDefault();
+                  var option = "productName";
+                  var search = $("input[name='data']").val();
+
+                  $.ajax({
+                      url: '${pageContext.request.contextPath}/product',
+                      type: 'GET',
+                      data: {
+                          "state" : "addProduct",
+                          "page":page,
+                          "option" : option,
+                          "search" : search
+                      },
+                      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+                      success: function (data) {
+                          $("div.tbWrapLt").html('');
+                          $("div.tbWrapLt").html(data);
+                      }, error: function () {
+                          console.log('error');
+                      }
+                  });
+              })
 
             // 상품등록 버튼 클릭시 수정아닌 버튼으로 작동하도록
               $("li[id='addProduct']").click(function(){
@@ -31,11 +61,15 @@
                   $("form[name='frm']").prop("action", "/product/add");
               });
               // 좌측 리스트내용 채우기용 ajax
-              var page = ${page} == null ? 1 : ${page};
               $.ajax({
                   url: '${pageContext.request.contextPath}/product',
                   type: 'GET',
-                  data: { "state" : "addProduct", "page":page},
+                  data: {
+                      "state" : "addProduct",
+                      "page":page,
+                      "option" : option,
+                      "search" : search
+                  },
                   contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                   success: function (data) {
                       $("div.tbWrapLt").html('');
@@ -44,6 +78,8 @@
                       console.log('error');
                   }
               });
+
+
 
               $("a#save, a#edit").click(function () {
                   if ($("select[name='productCategory']").val() == '') {
@@ -60,6 +96,7 @@
               });
           });
 
+          // 검색기능 추가하기 Todo
       </script>
 </head>
 <body>
@@ -93,9 +130,9 @@
                                                 <option>선택하세요</option>
                                           </select></td>
                                           <th>상품명</th>
-                                          <td><input type="text" name="" style="border:1px solid #ddd; height:20px;"
-                                                     class="inputText" size="30"/>
-                                                <span class="button"><a href="#">검색</a></span></td>
+                                          <td><input type="text" name="data" style="border:1px solid #ddd; height:20px;"
+                                                     class="inputText" size="30" name="data"/>
+                                                <span class="button"><a href="#" id="search">검색</a></span></td>
                                     </tr>
                                     </tbody>
                               </table>
