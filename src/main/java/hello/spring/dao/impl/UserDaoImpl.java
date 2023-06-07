@@ -6,6 +6,7 @@ import hello.spring.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,5 +27,12 @@ public class UserDaoImpl implements UserDao {
           UserMapper productMapper = sqlSession.getMapper(UserMapper.class);
           user = productMapper.selectByName(name);
           return user;
+     }
+     
+     @Override
+     @Transactional
+     public void createUser(User user) {
+          UserMapper productMapper = sqlSession.getMapper(UserMapper.class);
+          productMapper.createUser(user);
      }
 }

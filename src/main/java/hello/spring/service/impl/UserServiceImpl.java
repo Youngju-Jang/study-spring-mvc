@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
      public User selectByName(String name) {
           return userDao.selectByName(name);
      }
+     
+     @Override
+     public void createUser(User user) {
+          userDao.createUser(user);
+     }
 }

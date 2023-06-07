@@ -12,4 +12,9 @@
     <select id="isExist" resultType="boolean" parameterType="string">
         SELECT EXISTS(SELECT 1 FROM users WHERE name = #{name})
     </select>
+
+    <insert id="createUser" parameterType="User">
+        insert into users(name, password)
+        values (#{name}, #{password})
+    </insert>
 </mapper>

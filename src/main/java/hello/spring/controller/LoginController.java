@@ -19,13 +19,27 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
      private final UserService userService;
      
+     @GetMapping("/signup")
+     public String getSignUp(){
+          return "/cart/signup";
+     }
+     
+     @PostMapping("/signup")
+     @ResponseBody
+     public String singup(@ModelAttribute User user){
+          if (userService.isExist(user.getName())) {
+               return null;
+          }
+          userService.createUser(user);
+          return "T";
+     }
      @GetMapping ("/login")
      public String message(@CookieValue(value = "name",required = false)Cookie cookie,
                            Model model) {//쿠키생성 여부 확인
           if(cookie!=null){
                model.addAttribute("name", cookie.getValue());
           }
-          return "cart/adminLogin";
+          return "/cart/adminLogin";
      }
      
      @PostMapping ("/login")
@@ -60,5 +74,7 @@ public class LoginController {
           }
           return "/cart/adminLogin";
      }
+     
+     
      
 }
