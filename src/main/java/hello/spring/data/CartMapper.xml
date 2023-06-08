@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hello.spring.data.CartMapper">
+    <select id="selectAllByNoSet" resultType="Product" parameterType="java.util.Set">
+        select *
+        from Product
+        where no in
+        <foreach collection="newCartSet" open="(" close=")" item="i" separator="," index="index">
+            #{i}
+        </foreach>
+    </select>
+</mapper>

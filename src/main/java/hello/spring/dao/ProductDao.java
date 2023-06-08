@@ -1,10 +1,15 @@
 package hello.spring.dao;
 
-import hello.spring.model.Product;
+import hello.spring.entity.Product;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ProductDao {
      public void productInsert(Product product);
-     List<Product> selectAll();
+     List<Product> selectAll(HashMap<String, Object> hashMap);
+     int countAll(String search, String option);
+     Product selectById(int no);
+     void updateById(Product oriProduct, Integer no);
+     void deleteById(Integer no);
 }

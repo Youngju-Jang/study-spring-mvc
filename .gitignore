@@ -37,7 +37,7 @@ local.properties
 
 # sbteclipse plugin
 .target
-
+/target
 # Tern plugin
 .tern-project
 
@@ -280,4 +280,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,intellij,java,eclipse,git
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,intellij,java,eclipse,git!/src/main/webapp/resources/downImage/
+!/src/main/webapp/resources/downImage/*
+
