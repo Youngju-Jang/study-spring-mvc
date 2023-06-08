@@ -9,5 +9,5 @@ import java.util.Set;
 
 public interface CartService {
      List<Cart> selectAllByNoSet(Set<Integer> newCartSet);
-     
+     Cart selectByNo(Integer no);
 }

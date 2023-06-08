@@ -73,6 +73,15 @@ public class ProductServiceImpl implements ProductService {
      }
      
      @Override
+     public ProductResponseDto selectByNo(Integer no) {
+          Product product = productDao.selectById(no);
+          if(product == null){
+               return null;
+          }
+          return ProductResponseDto.entity2Dto(product);
+     }
+     
+     @Override
      public int countAll(String search, String option) {
           return productDao.countAll(search, option);
      }

@@ -4,9 +4,10 @@
 <%--<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>--%>
 <c:forEach items="${productList}" var="cart" varStatus="i">
       <tr>
+
             <td><input type="checkbox" name="newCartSet" value="${cart.no}"/></td>
             <td>${cart.no}</td>
-            <td>${cart.productName}</td>
+            <td><a href="/product/${cart.no}">${cart.productName}</a></td>
             <c:choose>
                   <c:when test="${not empty cart.fileName}">
                         <td>

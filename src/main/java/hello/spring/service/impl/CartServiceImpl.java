@@ -1,6 +1,7 @@
 package hello.spring.service.impl;
 
 import hello.spring.dao.CartDao;
+import hello.spring.dao.ProductDao;
 import hello.spring.entity.Cart;
 import hello.spring.entity.Product;
 import hello.spring.service.CartService;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
      private final CartDao cartDao;
+     private final ProductDao productDao;
      
      @Override
      public List<Cart> selectAllByNoSet(Set<Integer> newCartSet) {
@@ -22,7 +24,16 @@ public class CartServiceImpl implements CartService {
           if (productList == null) {
                return null;
           }
-          return productList.stream().map(Cart::Product2Cart)
+          return productList.stream().map(Cart::product2Cart)
                .collect(Collectors.toList());
+     }
+     
+     @Override
+     public Cart selectByNo(Integer no) {
+          Product product = productDao.selectById(no);
+          if(product==null){
+               return null;
+          }
+          return Cart.product2Cart(product);
      }
 }

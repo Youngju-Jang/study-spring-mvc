@@ -25,7 +25,7 @@ public class Cart {
           return cart.stream().map(Cart::getNo).collect(Collectors.toSet());
      }
      
-     public static Cart Product2Cart(Product product){
+     public static Cart product2Cart(Product product){
           return Cart.builder()
                .no(product.getNo())
                .productName(product.getProductName())

@@ -8,5 +8,4 @@ import java.util.Set;
 
 public interface CartMapper {
      List<Product> selectAllByNoSet(@Param("newCartSet") Set<Integer> newCartSet);
-     
 }

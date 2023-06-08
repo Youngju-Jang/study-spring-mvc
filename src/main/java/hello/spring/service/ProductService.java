@@ -15,4 +15,5 @@ public interface ProductService {
      int countAll(String search, String option);
      public void productEdit(ProductRequestDto productRequestDto, Integer no);
      public void deleteById(Integer no);
+     public ProductResponseDto selectByNo(Integer no);
 }

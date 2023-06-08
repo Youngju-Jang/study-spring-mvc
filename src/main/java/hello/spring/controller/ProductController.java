@@ -90,6 +90,14 @@ public class ProductController {
           return "cart/productList";
      }
      
+     
+     @GetMapping("/{no}")
+     public String getProduct(@PathVariable(required = true) Integer no,
+                              Model model){
+          model.addAttribute("product", productService.selectByNo(no));
+          
+          return "cart/productInfo";
+     }
      private static HashMap<String, Object> createMap(String search, String option, Page pageBean) {
           HashMap<String, Object> map = new HashMap<>();
           map.put("search", search);

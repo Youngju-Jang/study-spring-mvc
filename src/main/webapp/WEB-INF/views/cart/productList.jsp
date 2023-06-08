@@ -20,22 +20,22 @@
               var option = "${option}";
               var page = "${pageBean.currentPage}";
 
-              if(page==${pageBean.totalPage}){
+              if (page ==${pageBean.totalPage}) {
                   $("a#showMore").hide();
               }
               $("select[name='query']").val(option).prop("selected", true);
               $("input[name='data']").val(search);
 
               // 검색버튼 클릭시
-              $("a#search").click(function(e){
+              $("a#search").click(function (e) {
                   e.preventDefault();
                   var option = $("select#query").val();
-                  if(option == '' || option==null){
+                  if (option == '' || option == null) {
                       alert("옵션을 선택해주세요");
                       return false;
                   }
                   var search = $("input[name='data']").val();
-                  window.location.href = '${pageContext.request.contextPath}/product?search='+search+'&option='+option;
+                  window.location.href = '${pageContext.request.contextPath}/product?search=' + search + '&option=' + option;
               })
 
               // 장바구니 추가버튼
@@ -57,16 +57,16 @@
                       type: 'GET',
                       data: {
                           "state": "productListView",
-                          "page": parseInt(page)+1,
+                          "page": parseInt(page) + 1,
                           "search": search,
                           "option": option
                       },
                       contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
                   }).done(function (data) {
                       $('tbody#dataRows').append(data);
-                      $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+                      $('html, body').animate({scrollTop: $(document).height()}, 'slow');
                       page++;
-                      if(page==${pageBean.totalPage}){
+                      if (page ==${pageBean.totalPage}) {
                           $("a#showMore").hide();
                       }
                   }).fail(function () {
@@ -124,7 +124,9 @@
                                                            style="border:1px solid #ddd; height:20px;" class="inputText"
                                                            size="30"/>
                                                       <span class="button"><a href="#" id="search">검색</a></span>
-                                                      <span class="button"><a href="${pageContext.request.contextPath}/product" id="reset">새로고침</a></span>
+                                                      <span class="button"><a
+                                                                href="${pageContext.request.contextPath}/product"
+                                                                id="reset">새로고침</a></span>
                                                 </td>
                                           </tr>
                                           </tbody>
@@ -161,28 +163,28 @@
 
                                           <tbody id="dataRows">
                                           <c:forEach items="${productList}" var="cart" varStatus="i">
-                                                <tr>
-                                                      <td><input type="checkbox" name="newCartIntSet"
-                                                                 value="${cart.no}"/></td>
-                                                      <td>${cart.no}</td>
-                                                      <td>${cart.productName}</td>
-                                                      <c:choose>
-                                                            <c:when test="${not empty cart.fileName}">
-                                                                  <td>
-                                                                        <img src="${pageContext.request.contextPath}/resources/downImage/${cart.fileName}"
-                                                                             width="50" height="50"/>
-                                                                  </td>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                  <td></td>
-                                                            </c:otherwise>
-                                                      </c:choose>
-                                                      <td>${cart.productOrigin}</td>
-                                                      <td>${cart.productPrice}</td>
-                                                      <td>${cart.productCategory}</td>
-                                                      <td>${cart.regdate}</td>
-                                                      <td>${cart.seller}</td>
-                                                </tr>
+                                                      <tr>
+                                                            <td><input type="checkbox" name="newCartIntSet"
+                                                                       value="${cart.no}"/></td>
+                                                            <td>${cart.no}</td>
+                                                            <td><a href="/product/${cart.no}">${cart.productName}</a></td>
+                                                            <c:choose>
+                                                                  <c:when test="${not empty cart.fileName}">
+                                                                        <td>
+                                                                              <img src="${pageContext.request.contextPath}/resources/downImage/${cart.fileName}"
+                                                                                   width="50" height="50"/>
+                                                                        </td>
+                                                                  </c:when>
+                                                                  <c:otherwise>
+                                                                        <td></td>
+                                                                  </c:otherwise>
+                                                            </c:choose>
+                                                            <td>${cart.productOrigin}</td>
+                                                            <td>${cart.productPrice}</td>
+                                                            <td>${cart.productCategory}</td>
+                                                            <td>${cart.regdate}</td>
+                                                            <td>${cart.seller}</td>
+                                                      </tr>
                                           </c:forEach>
                                           </tbody>
                                     </table>
